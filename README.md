@@ -29,10 +29,9 @@
 - [15. Simulación en Proteus](#15-simulación-en-proteus)
 - [16. Evidencias](#16-evidencias)
   - [16.1. Montaje](#161-Montaje)
-  - [16.2. Código desarrollado en MPLAB X IDE](#162-código-desarrollado-en-mplab-x-ide)
-  - [16.3. Circuito implementado en Proteus](#163-circuito-implementado-en-proteus)
-  - [16.4. Simulación con el pulsador sin presionar](#164-simulación-con-el-pulsador-sin-presionar)
-  - [16.5. Simulación con el pulsador presionado](#165-simulación-con-el-pulsador-presionado)
+  - [16.2. Circuito implementado en Proteus](#162-circuito-implementado-en-proteus)
+  - [16.3. Simulación con el pulsador sin presionar](#163-simulación-con-el-pulsador-sin-presionar)
+  - [16.4. Simulación con el pulsador presionado](#164-simulación-con-el-pulsador-presionado)
 - [17. Pruebas y resultados](#17-pruebas-y-resultados)
 - [18. Dificultades encontradas](#18-dificultades-encontradas)
 - [19. Análisis crítico](#19-análisis-crítico)
@@ -597,17 +596,9 @@ En esta sección se presentan las evidencias correspondientes al desarrollo de l
 ### 16.1. Montaje
 <img src="Imagenes/montaje_fisico.jpeg" width="800">
 
-### 16.2. Código desarrollado en MPLAB X IDE
-
-En la siguiente evidencia se muestra el código desarrollado en MPLAB X IDE para controlar el LED mediante el pulsador conectado al PIC18F45K22.
-
-El programa configura el oscilador interno del microcontrolador a 1 MHz, establece RA0 como entrada digital para el pulsador y RD0 como salida digital para el LED. Posteriormente, el programa verifica continuamente el estado del pulsador y controla el LED de acuerdo con dicha entrada.
-
-<img src="Imagenes/montaje_fisico.jpeg" width="800">
-
 ---
 
-### 16.3. Circuito implementado en Proteus
+### 16.2. Circuito implementado en Proteus
 
 En esta evidencia se presenta el circuito implementado en Proteus. Se utilizó un microcontrolador PIC18F45K22, un pulsador conectado a la entrada RA0 y un LED conectado a la salida RD0 mediante una resistencia para limitar la corriente.
 
@@ -617,7 +608,7 @@ El pulsador utiliza una resistencia de 10 kΩ como resistencia de pull-up, por l
 
 ---
 
-### 16.4. Simulación con el pulsador sin presionar
+### 16.3. Simulación con el pulsador sin presionar
 
 En esta prueba el pulsador se encuentra en estado de reposo, es decir, sin ser presionado. Debido a la resistencia de pull-up, la entrada RA0 se encuentra en nivel lógico alto.
 
@@ -627,7 +618,7 @@ El programa detecta que el pulsador no está presionado y mantiene la salida RD0
 
 ---
 
-### 16.5. Simulación con el pulsador presionado
+### 16.4. Simulación con el pulsador presionado
 
 En esta prueba se presiona el pulsador conectado a la entrada RA0. Al realizar esta acción, la entrada pasa a nivel lógico bajo.
 
