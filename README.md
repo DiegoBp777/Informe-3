@@ -80,3 +80,562 @@ Cuando el pulsador no está presionado, la entrada del microcontrolador debe enc
 
 ```text
 Pulsador = 1
+```
+En este estado el LED debe permanecer apagado:
+```text
+LED = 0
+```
+**Pulsador presionado**
+
+Cuando el pulsador es presionado, la entrada del microcontrolador se conecta a tierra y pasa a un estado lógico bajo:
+
+Pulsador = 0
+
+El microcontrolador debe detectar este estado y encender el LED:
+```text
+LED = 1
+```
+Por lo tanto, el funcionamiento general del sistema es:
+```text
+Sin presionar → LED apagado
+
+Presionado → LED encendido
+
+Soltar → LED apagado
+```
+---
+# 4. Análisis del problema
+
+Para solucionar el problema se identifican tres elementos principales:
+```text
+ENTRADA → PROCESO → SALIDA
+```
+**Entrada**
+
+La entrada corresponde al pulsador conectado al pin:
+```text
+RA0
+```
+El pulsador utiliza una resistencia de 10 kΩ conectada a +5 V, funcionando como resistencia de polarización o pull-up.
+
+Cuando el pulsador no está presionado:
+```text
+RA0 = 1
+```
+Cuando el pulsador está presionado:
+```text
+RA0 = 0
+```
+**Proceso**
+
+El PIC18F45K22 lee continuamente el estado de RA0.
+
+Si RA0 es igual a `0`, significa que el pulsador está presionado y el microcontrolador debe colocar RD0 en `1` para encender el LED.
+
+Si RA0 es igual a `1`, significa que el pulsador está liberado y el microcontrolador debe colocar RD0 en `0` para apagar el LED.
+
+**Salida**
+
+La salida corresponde al LED conectado al pin:
+```text
+RD0
+```
+El funcionamiento es:
+```text
+RD0 = 1 → LED encendido
+
+RD0 = 0 → LED apagado
+```
+# 5. Entradas, proceso y salidas
+
+El sistema puede representarse de la siguiente manera:
+```text
+┌────────────────────┐
+│       ENTRADA      │
+│                    │
+│      Pulsador      │
+│         ↓          │
+│        RA0         │
+└─────────┬──────────┘
+          │
+          ↓
+┌────────────────────┐
+│       PROCESO      │
+│                    │
+│    PIC18F45K22     │
+│                    │
+│  Lee el estado de  │
+│      la entrada    │
+└─────────┬──────────┘
+          │
+          ↓
+┌────────────────────┐
+│       SALIDA       │
+│                    │
+│        RD0         │
+│         ↓          │
+│        LED         │
+└────────────────────┘
+```
+**Tabla de funcionamiento**
+
+| Estado del pulsador    | RA0 | RD0 | Estado del LED |
+| ---------------------- | --: | --: | -------------- |
+| Sin presionar          |   1 |   0 | Apagado        |
+| Presionado             |   0 |   1 | Encendido      |
+| Se mantiene presionado |   0 |   1 | Encendido      |
+| Se suelta              |   1 |   0 | Apagado        |
+
+# 6. Algoritmo
+
+El algoritmo desarrollado para resolver el problema es el siguiente:
+
+1. Iniciar el programa.
+2. Configurar el oscilador interno del PIC18F45K22 a 1 MHz.
+3. Desactivar las funciones analógicas de los puertos utilizados.
+4. Configurar RA0 como entrada digital.
+5. Configurar RD0 como salida digital.
+6. Inicializar el LED apagado.
+7. Leer continuamente el estado de RA0.
+8. Comprobar si el pulsador está presionado.
+9. Si RA0 es igual a 0, encender el LED mediante RD0.
+10. Si RA0 es igual a 1, apagar el LED mediante RD0.
+11. Repetir continuamente el proceso.
+
+# 7. Pseudocódigo
+```text
+INICIO
+
+Configurar oscilador a 1 MHz
+
+Configurar RA0 como entrada
+
+Configurar RD0 como salida
+
+Apagar LED
+
+MIENTRAS verdadero HACER
+
+    Leer RA0
+
+    SI RA0 = 0 ENTONCES
+        Encender LED
+    SINO
+        Apagar LED
+    FIN SI
+
+FIN MIENTRAS
+
+FIN
+```
+# 8. Diagrama de flujo
+
+El funcionamiento del programa puede representarse mediante el siguiente diagrama:
+
+                 ┌───────────────┐
+                 │    INICIO     │
+                 └───────┬───────┘
+                         │
+                         ↓
+              ┌─────────────────────┐
+              │ Configurar           │
+              │ oscilador a 1 MHz    │
+              └──────────┬──────────┘
+                         │
+                         ↓
+              ┌─────────────────────┐
+              │ Configurar RA0 como  │
+              │ entrada digital      │
+              │                     │
+              │ Configurar RD0 como  │
+              │ salida digital       │
+              └──────────┬──────────┘
+                         │
+                         ↓
+                  ┌─────────────┐
+                  │  Leer RA0   │
+                  └──────┬──────┘
+                         │
+                         ↓
+                  ┌─────────────┐
+                  │ ¿RA0 = 0?   │
+                  │ ¿Pulsador   │
+                  │ presionado? │
+                  └──────┬──────┘
+                     SI  │  NO
+                         │
+              ┌──────────┘ └──────────┐
+              ↓                       ↓
+       ┌───────────────┐      ┌───────────────┐
+       │ RD0 = 1       │      │ RD0 = 0       │
+       │ Encender LED  │      │ Apagar LED    │
+       └───────┬───────┘      └───────┬───────┘
+               │                      │
+               └──────────┬───────────┘
+                          │
+                          ↓
+                   ┌─────────────┐
+                   │ Volver a    │
+                   │ leer RA0    │
+                   └──────┬──────┘
+                          │
+                          └───────────↺
+# 9. Marco teórico
+## 9.1. Microcontrolador PIC18F45K22
+
+El PIC18F45K22 es un microcontrolador de la familia PIC18 que permite desarrollar sistemas electrónicos mediante la programación de sus entradas, salidas, temporizadores y diferentes periféricos.
+
+Para esta práctica se utilizan principalmente los puertos A y D para realizar la comunicación entre el pulsador, el microcontrolador y el LED.
+
+## 9.2. Entrada digital
+
+Una entrada digital permite detectar dos estados lógicos:
+```text
+0 → LOW
+
+1 → HIGH
+```
+En esta práctica se utiliza el pin RA0 como entrada digital.
+
+El estado de esta entrada depende de la posición del pulsador.
+
+## 9.3. Salida digital
+
+Una salida digital permite controlar dispositivos externos utilizando niveles lógicos.
+
+En esta práctica se utiliza el pin RD0 como salida para controlar el LED.
+```text
+RD0 = 1 → LED encendido
+
+RD0 = 0 → LED apagado
+```
+## 9.4. Resistencia Pull-Up
+
+La resistencia de 10 kΩ conectada entre +5 V y RA0 permite mantener la entrada en un estado lógico alto cuando el pulsador está abierto.
+
+La conexión utilizada es:
+
+             +5 V
+               │
+              10kΩ
+               │
+               ├──────── RA0
+               │
+           ┌───┴───┐
+           │Pulsador│
+           └───┬───┘
+               │
+              GND
+
+De esta forma:
+```text
+Pulsador abierto  → RA0 = 1
+
+Pulsador cerrado  → RA0 = 0
+```
+Por esta razón, el programa considera que el pulsador está presionado cuando RA0 tiene un valor lógico `0`.
+
+# 10. Materiales y herramientas
+**Materiales**
+PIC18F45K22.
+* Pulsador.
+* LED.
+* Resistencia de 10 kΩ.
+* Resistencia limitadora para el LED.
+* Fuente de alimentación de 5 V.
+* Protoboard.
+* Cables de conexión.
+**Software**
+* MPLAB X IDE.
+* Compilador XC8.
+* Proteus Design Suite.
+  
+# 11. Diseño del circuito
+
+El circuito fue diseñado en Proteus utilizando el microcontrolador PIC18F45K22.
+
+Para la entrada se utilizó el pin:
+```text
+RA0 → Pulsador
+```
+Para la salida se utilizó:
+```text
+RD0 → LED
+```
+La conexión general del circuito es:
+
+                 +5 V
+                  │
+                 10kΩ
+                  │
+                  ├──────────── RA0
+                  │
+              ┌───┴───┐
+              │Pulsador│
+              └───┬───┘
+                  │
+                 GND
+
+
+              PIC18F45K22
+                   │
+                  RD0
+                   │
+                Resistencia
+                limitadora
+                   │
+                  LED
+                   │
+                  GND
+
+# 12. Conexiones del PIC18F45K22
+
+Las principales conexiones utilizadas en la práctica son:
+
+| Pin del PIC | Función                |
+| ----------- | ---------------------- |
+| RA0         | Entrada del pulsador   |
+| RD0         | Salida para el LED     |
+| MCLR        | Configuración de reset |
+| VDD         | Alimentación +5 V      |
+| VSS         | Tierra (GND)           |
+
+**Conexión del pulsador**
+
+El pulsador se conecta entre RA0 y GND.
+
+Además, se utiliza una resistencia de 10 kΩ entre RA0 y +5 V.
+```text
++5 V
+ │
+10 kΩ
+ │
+ ├──── RA0
+ │
+Pulsador
+ │
+GND
+```
+**Conexión del LED**
+
+El LED se conecta a RD0 mediante una resistencia limitadora de corriente:
+```text
+RD0
+ │
+Resistencia
+ │
+LED
+ │
+GND
+```
+# 13. Implementación del programa
+
+El programa fue desarrollado en MPLAB X IDE utilizando el compilador XC8.
+
+Se mantuvo la configuración del oscilador interno utilizada en la práctica anterior:
+```text
+#pragma config FOSC = INTIO67
+```
+El oscilador interno se configura a 1 MHz mediante:
+```text
+OSCCON = 0b10000000;
+```
+Posteriormente se desactivan las funciones analógicas de los puertos utilizados:
+```text
+ANSELA = 0;
+ANSELD = 0;
+```
+Esto permite utilizar RA0 y RD0 como pines digitales.
+
+RA0 se configura como entrada:
+```text
+TRISAbits.TRISA0 = 1;
+```
+RD0 se configura como salida:
+```text
+TRISDbits.TRISD0 = 0;
+```
+Finalmente, dentro del ciclo principal se comprueba continuamente el estado del pulsador.
+
+Si RA0 es igual a 0, se enciende el LED:
+```text
+LATDbits.LATD0 = 1;
+```
+Si RA0 es igual a 1, se apaga:
+```text
+LATDbits.LATD0 = 0;
+```
+# 14. Código utilizado
+```text
+/*
+ * File:   main.c
+ * Author: LOS MAKIAS
+ *
+ * Practica 3
+ * Control de LED mediante pulsador
+ */
+
+#include <xc.h>
+
+// Configuracion del oscilador interno a 1MHz
+#pragma config FOSC = INTIO67
+#pragma config WDTEN = OFF
+#pragma config LVP = OFF
+
+#define _XTAL_FREQ 1000000
+
+void main(void) {
+
+    // Configurar el oscilador interno a 1MHz
+    OSCCON = 0b10000000;
+
+    // Desactivar entradas analogicas
+    ANSELA = 0;
+    ANSELD = 0;
+
+    // RA0 como entrada
+    TRISAbits.TRISA0 = 1;
+
+    // RD0 como salida
+    TRISDbits.TRISD0 = 0;
+
+    // LED inicialmente apagado
+    LATDbits.LATD0 = 0;
+
+    while(1)
+    {
+        // Verificar si el pulsador esta presionado
+        if(PORTAbits.RA0 == 0)
+        {
+            // Encender LED
+            LATDbits.LATD0 = 1;
+        }
+        else
+        {
+            // Apagar LED
+            LATDbits.LATD0 = 0;
+        }
+    }
+
+    return;
+}
+```
+# 15. Simulación en Proteus
+
+Después de realizar el programa en MPLAB X IDE, se realizó la compilación del proyecto para generar el archivo `.hex`.
+
+Posteriormente, este archivo se cargó en las propiedades del PIC18F45K22 dentro de Proteus.
+
+Una vez iniciado el circuito se realizaron las pruebas correspondientes.
+
+**Estado 1: Pulsador sin presionar**
+
+Cuando el pulsador está abierto, la resistencia de 10 kΩ mantiene la entrada RA0 en un nivel lógico alto:
+```text
+RA0 = 1
+```
+El programa ejecuta:
+```text
+LATDbits.LATD0 = 0;
+```
+Por lo tanto:
+```text
+LED = APAGADO
+Evidencia
+```
+**Estado 2: Pulsador presionado**
+
+Cuando se presiona el pulsador, RA0 se conecta a tierra:
+```text
+RA0 = 0
+```
+El programa detecta esta condición y ejecuta:
+```text
+LATDbits.LATD0 = 1;
+```
+Por lo tanto:
+```text
+LED = ENCENDIDO
+```
+**Estado 3: Pulsador liberado**
+
+Cuando se deja de presionar el pulsador, la resistencia pull-up vuelve a colocar RA0 en nivel alto:
+```text
+RA0 = 1
+```
+El programa apaga nuevamente el LED:
+```text
+LATDbits.LATD0 = 0;
+```
+Por lo tanto:
+```text
+LED = APAGADO
+```
+# 16. Pruebas y resultados
+
+Se realizaron diferentes pruebas para verificar el funcionamiento del sistema.
+
+| Prueba | Estado del pulsador    | RA0 | RD0 | LED       |
+| ------ | ---------------------- | --: | --: | --------- |
+| 1      | Sin presionar          |   1 |   0 | Apagado   |
+| 2      | Presionado             |   0 |   1 | Encendido |
+| 3      | Se mantiene presionado |   0 |   1 | Encendido |
+| 4      | Se suelta              |   1 |   0 | Apagado   |
+
+Los resultados obtenidos corresponden al funcionamiento esperado.
+
+El LED permanece encendido mientras el pulsador se encuentra presionado y se apaga inmediatamente después de liberar el pulsador.
+
+# 17. Dificultades encontradas
+
+Durante el desarrollo de la práctica se presentaron algunas dificultades relacionadas con la configuración de los pines del PIC18F45K22 y la conexión del pulsador.
+
+Una de las principales consideraciones fue comprender el funcionamiento de la resistencia de 10 kΩ utilizada como pull-up.
+
+Debido a esta conexión, el estado lógico de la entrada es:
+```text
+Pulsador sin presionar → RA0 = 1
+
+Pulsador presionado → RA0 = 0
+```
+Por esta razón, la condición utilizada en el programa es:
+```text
+if(PORTAbits.RA0 == 0)
+```
+También fue necesario desactivar las funciones analógicas mediante:
+```text
+ANSELA = 0;
+ANSELD = 0;
+```
+para garantizar que los pines utilizados funcionaran correctamente como entradas y salidas digitales.
+
+Otra consideración importante fue utilizar los registros `LATD` para controlar la salida del LED y `PORTA` para leer el estado de la entrada.
+
+# 18. Análisis crítico
+
+La práctica permitió comprobar el funcionamiento de un sistema básico de entrada, procesamiento y salida utilizando el PIC18F45K22.
+
+El problema planteado fue solucionado mediante una lectura continua del estado del pulsador. El pin RA0 funciona como entrada digital, el microcontrolador procesa la información recibida y el pin RD0 controla el LED como salida.
+
+Uno de los aspectos más importantes de la práctica fue comprender que la entrada utiliza una resistencia pull-up. Debido a esto, el estado lógico de RA0 es `1`  cuando el pulsador está libre y cambia a `0` cuando el pulsador es presionado.
+
+Esta característica fue tenida en cuenta al momento de desarrollar la condición del programa.
+
+El funcionamiento obtenido cumple con el objetivo planteado: el LED se enciende mientras el pulsador está presionado y se apaga cuando el pulsador deja de presionarse.
+
+La simulación en Proteus permitió comprobar el comportamiento del circuito y verificar la relación entre la entrada y la salida antes de realizar una implementación física.
+
+Como limitación, el sistema desarrollado solamente utiliza una entrada y una salida digital, por lo que corresponde a una aplicación básica de control. Sin embargo, la estructura utilizada puede servir como base para sistemas más complejos con múltiples entradas y salidas.
+
+# 19. Conclusiones
+* Se implementó correctamente un sistema de entrada y salida digital utilizando el microcontrolador PIC18F45K22.
+* Se configuró el pin RA0 como entrada digital para detectar el estado del pulsador.
+* Se configuró el pin RD0 como salida digital para controlar el LED.
+* Se comprobó que al presionar el pulsador el LED se enciende.
+* Se comprobó que al soltar el pulsador el LED se apaga.
+* Se comprendió el funcionamiento de una resistencia pull-up de 10 kΩ.
+* Se implementó el programa utilizando MPLAB X IDE y XC8.
+* Se verificó el funcionamiento del circuito mediante la simulación en Proteus.
+* La práctica permitió fortalecer los conocimientos sobre configuración de puertos digitales, lectura de entradas y control de salidas mediante un microcontrolador.
+
+
