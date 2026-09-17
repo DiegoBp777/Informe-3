@@ -536,6 +536,7 @@ void main(void) {
 }
 ```
 ---
+
 # 15. Simulación en Proteus
 
 Después de realizar el programa en MPLAB X IDE, se realizó la compilación del proyecto para generar el archivo `.hex`.
@@ -588,6 +589,7 @@ Por lo tanto:
 LED = APAGADO
 ```
 ---
+
 ## 16. Evidencias
 
 En esta sección se presentan las evidencias correspondientes al desarrollo de la práctica, incluyendo la programación realizada en MPLAB X IDE, el montaje del circuito en Proteus y las diferentes pruebas de funcionamiento del sistema.
@@ -631,7 +633,7 @@ El microcontrolador detecta esta condición y establece la salida RD0 en nivel l
 ![Pulsador presionado - LED encendido](imagenes/led_encendido.png)
 
 ---
----
+
 # 17. Pruebas y resultados
 
 Se realizaron diferentes pruebas para verificar el funcionamiento del sistema.
@@ -646,6 +648,7 @@ Se realizaron diferentes pruebas para verificar el funcionamiento del sistema.
 Los resultados obtenidos corresponden al funcionamiento esperado.
 
 El LED permanece encendido mientras el pulsador se encuentra presionado y se apaga inmediatamente después de liberar el pulsador.
+
 ---
 # 18. Dificultades encontradas
 
@@ -671,6 +674,7 @@ ANSELD = 0;
 para garantizar que los pines utilizados funcionaran correctamente como entradas y salidas digitales.
 
 Otra consideración importante fue utilizar los registros `LATD` para controlar la salida del LED y `PORTA` para leer el estado de la entrada.
+
 ---
 # 19. Análisis crítico
 
@@ -684,9 +688,10 @@ Esta característica fue tenida en cuenta al momento de desarrollar la condició
 
 El funcionamiento obtenido cumple con el objetivo planteado: el LED se enciende mientras el pulsador está presionado y se apaga cuando el pulsador deja de presionarse.
 
-La simulación en Proteus permitió comprobar el comportamiento del circuito y verificar la relación entre la entrada y la salida antes de realizar una implementación física.
+La simulación en Proteus permitió comprobar el comportamiento del circuito y verificar la relación entre la entrada y la salida antes de realizar una implementación física
 
 Como limitación, el sistema desarrollado solamente utiliza una entrada y una salida digital, por lo que corresponde a una aplicación básica de control. Sin embargo, la estructura utilizada puede servir como base para sistemas más complejos con múltiples entradas y salidas.
+
 ---
 # 20. Conclusiones
 
