@@ -595,7 +595,7 @@ LED = APAGADO
 En esta sección se presentan las evidencias correspondientes al desarrollo de la práctica, incluyendo la programación realizada en MPLAB X IDE, el montaje del circuito en Proteus y las diferentes pruebas de funcionamiento del sistema.
 
 ### 16.1. Montaje
-![Montaje](Imagenes/codigo_mplab.png)
+![Montaje](Imagenes/montaje_fisico.jpeg)
 
 ### 16.2. Código desarrollado en MPLAB X IDE
 
