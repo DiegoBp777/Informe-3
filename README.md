@@ -594,7 +594,7 @@ LED = APAGADO
 En esta sección se presentan las evidencias correspondientes al desarrollo de la práctica, incluyendo la programación realizada en MPLAB X IDE, el montaje del circuito en Proteus y las diferentes pruebas de funcionamiento del sistema.
 
 ### 16.1. Montaje
-<img src="Imagenes/montaje_fisico.jpeg" width="800">
+<img src="Imagenes/montaje_fisico.jpeg" width="450">
 
 ---
 
@@ -604,7 +604,7 @@ En esta evidencia se presenta el circuito implementado en Proteus. Se utilizó u
 
 El pulsador utiliza una resistencia de 10 kΩ como resistencia de pull-up, por lo que la entrada RA0 permanece en nivel lógico alto cuando el pulsador no está presionado y pasa a nivel lógico bajo cuando se presiona.
 
-<img src="Imagenes/proteus_1.jpeg" width="800">
+<img src="Imagenes/proteus_1.jpeg" width="500">
 
 ---
 
@@ -614,7 +614,7 @@ En esta prueba el pulsador se encuentra en estado de reposo, es decir, sin ser p
 
 El programa detecta que el pulsador no está presionado y mantiene la salida RD0 en nivel lógico bajo, por lo que el LED permanece apagado.
 
-<img src="Imagenes/led_apagado.jpeg" width="800">
+<img src="Imagenes/led_apagado.jpeg" width="350">
 
 ---
 
@@ -624,7 +624,7 @@ En esta prueba se presiona el pulsador conectado a la entrada RA0. Al realizar e
 
 El microcontrolador detecta esta condición y establece la salida RD0 en nivel lógico alto, provocando que el LED se encienda mientras el pulsador permanezca presionado.
 
-<img src="Imagenes/led_encendido.jpeg" width="800">
+<img src="Imagenes/led_encendido.jpeg" width="350">
 
 ---
 
