@@ -595,7 +595,7 @@ LED = APAGADO
 En esta sección se presentan las evidencias correspondientes al desarrollo de la práctica, incluyendo la programación realizada en MPLAB X IDE, el montaje del circuito en Proteus y las diferentes pruebas de funcionamiento del sistema.
 
 ### 16.1. Montaje
-![Montaje](Imagenes/montaje_fisico.jpeg)
+<img src="Imagenes/montaje_fisico.jpeg" width="800">
 
 ### 16.2. Código desarrollado en MPLAB X IDE
 
@@ -603,7 +603,7 @@ En la siguiente evidencia se muestra el código desarrollado en MPLAB X IDE para
 
 El programa configura el oscilador interno del microcontrolador a 1 MHz, establece RA0 como entrada digital para el pulsador y RD0 como salida digital para el LED. Posteriormente, el programa verifica continuamente el estado del pulsador y controla el LED de acuerdo con dicha entrada.
 
-![Código desarrollado en MPLAB](imagenes/codigo_mplab.png)
+<img src="Imagenes/montaje_fisico.jpeg" width="800">
 
 ---
 
@@ -613,7 +613,7 @@ En esta evidencia se presenta el circuito implementado en Proteus. Se utilizó u
 
 El pulsador utiliza una resistencia de 10 kΩ como resistencia de pull-up, por lo que la entrada RA0 permanece en nivel lógico alto cuando el pulsador no está presionado y pasa a nivel lógico bajo cuando se presiona.
 
-![Circuito realizado en Proteus](imagenes/circuito_proteus.png)
+<img src="Imagenes/" width="800">
 
 ---
 
