@@ -343,7 +343,8 @@ Pulsador abierto  → RA0 = 1
 
 Pulsador cerrado  → RA0 = 0
 ```
-Por esta razón, el programa considera que el pulsador está presionado cuando RA0 tiene un valor lógico `0`.
+Por esta razón, el programa considera que el pulsador está presionado cuando RA0 tiene un valor lógico `0`
+
 ---
 # 10. Materiales y herramientas
 **Materiales**
