@@ -594,7 +594,10 @@ LED = APAGADO
 
 En esta sección se presentan las evidencias correspondientes al desarrollo de la práctica, incluyendo la programación realizada en MPLAB X IDE, el montaje del circuito en Proteus y las diferentes pruebas de funcionamiento del sistema.
 
-### 16.1. Código desarrollado en MPLAB X IDE
+### 16.1. Montaje
+![Montaje](Imagenes/codigo_mplab.png)
+
+### 16.2. Código desarrollado en MPLAB X IDE
 
 En la siguiente evidencia se muestra el código desarrollado en MPLAB X IDE para controlar el LED mediante el pulsador conectado al PIC18F45K22.
 
@@ -604,7 +607,7 @@ El programa configura el oscilador interno del microcontrolador a 1 MHz, estable
 
 ---
 
-### 16.2. Circuito implementado en Proteus
+### 16.3. Circuito implementado en Proteus
 
 En esta evidencia se presenta el circuito implementado en Proteus. Se utilizó un microcontrolador PIC18F45K22, un pulsador conectado a la entrada RA0 y un LED conectado a la salida RD0 mediante una resistencia para limitar la corriente.
 
@@ -614,7 +617,7 @@ El pulsador utiliza una resistencia de 10 kΩ como resistencia de pull-up, por l
 
 ---
 
-### 16.3. Simulación con el pulsador sin presionar
+### 16.4. Simulación con el pulsador sin presionar
 
 En esta prueba el pulsador se encuentra en estado de reposo, es decir, sin ser presionado. Debido a la resistencia de pull-up, la entrada RA0 se encuentra en nivel lógico alto.
 
@@ -624,7 +627,7 @@ El programa detecta que el pulsador no está presionado y mantiene la salida RD0
 
 ---
 
-### 16.4. Simulación con el pulsador presionado
+### 16.5. Simulación con el pulsador presionado
 
 En esta prueba se presiona el pulsador conectado a la entrada RA0. Al realizar esta acción, la entrada pasa a nivel lógico bajo.
 
