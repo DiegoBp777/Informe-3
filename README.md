@@ -27,10 +27,16 @@
 - [13. Implementación del programa](#13-implementación-del-programa)
 - [14. Código utilizado](#14-código-utilizado)
 - [15. Simulación en Proteus](#15-simulación-en-proteus)
-- [16. Pruebas y resultados](#16-pruebas-y-resultados)
-- [17. Dificultades encontradas](#17-dificultades-encontradas)
-- [18. Análisis crítico](#18-análisis-crítico)
-- [19. Conclusiones](#19-conclusiones)
+- [16. Evidencias](#16-evidencias)
+  - [16.1. Código desarrollado en MPLAB X IDE](#161-código-desarrollado-en-mplab-x-ide)
+  - [16.2. Circuito implementado en Proteus](#162-circuito-implementado-en-proteus)
+  - [16.3. Simulación con el pulsador sin presionar](#163-simulación-con-el-pulsador-sin-presionar)
+  - [16.4. Simulación con el pulsador presionado](#164-simulación-con-el-pulsador-presionado)
+  - [16.5. Funcionamiento completo](#165-funcionamiento-completo)
+- [17. Pruebas y resultados](#17-pruebas-y-resultados)
+- [18. Dificultades encontradas](#18-dificultades-encontradas)
+- [19. Análisis crítico](#19-análisis-crítico)
+- [20. Conclusiones](#20-conclusiones)
 
 ---
 
@@ -571,7 +577,51 @@ Por lo tanto:
 ```text
 LED = APAGADO
 ```
-# 16. Pruebas y resultados
+## 16. Evidencias
+
+En esta sección se presentan las evidencias correspondientes al desarrollo de la práctica, incluyendo la programación realizada en MPLAB X IDE, el montaje del circuito en Proteus y las diferentes pruebas de funcionamiento del sistema.
+
+### 16.1. Código desarrollado en MPLAB X IDE
+
+En la siguiente evidencia se muestra el código desarrollado en MPLAB X IDE para controlar el LED mediante el pulsador conectado al PIC18F45K22.
+
+El programa configura el oscilador interno del microcontrolador a 1 MHz, establece RA0 como entrada digital para el pulsador y RD0 como salida digital para el LED. Posteriormente, el programa verifica continuamente el estado del pulsador y controla el LED de acuerdo con dicha entrada.
+
+![Código desarrollado en MPLAB](imagenes/codigo_mplab.png)
+
+---
+
+### 16.2. Circuito implementado en Proteus
+
+En esta evidencia se presenta el circuito implementado en Proteus. Se utilizó un microcontrolador PIC18F45K22, un pulsador conectado a la entrada RA0 y un LED conectado a la salida RD0 mediante una resistencia para limitar la corriente.
+
+El pulsador utiliza una resistencia de 10 kΩ como resistencia de pull-up, por lo que la entrada RA0 permanece en nivel lógico alto cuando el pulsador no está presionado y pasa a nivel lógico bajo cuando se presiona.
+
+![Circuito realizado en Proteus](imagenes/circuito_proteus.png)
+
+---
+
+### 16.3. Simulación con el pulsador sin presionar
+
+En esta prueba el pulsador se encuentra en estado de reposo, es decir, sin ser presionado. Debido a la resistencia de pull-up, la entrada RA0 se encuentra en nivel lógico alto.
+
+El programa detecta que el pulsador no está presionado y mantiene la salida RD0 en nivel lógico bajo, por lo que el LED permanece apagado.
+
+![Pulsador sin presionar - LED apagado](imagenes/led_apagado.png)
+
+---
+
+### 16.4. Simulación con el pulsador presionado
+
+En esta prueba se presiona el pulsador conectado a la entrada RA0. Al realizar esta acción, la entrada pasa a nivel lógico bajo.
+
+El microcontrolador detecta esta condición y establece la salida RD0 en nivel lógico alto, provocando que el LED se encienda mientras el pulsador permanezca presionado.
+
+![Pulsador presionado - LED encendido](imagenes/led_encendido.png)
+
+---
+
+# 17. Pruebas y resultados
 
 Se realizaron diferentes pruebas para verificar el funcionamiento del sistema.
 
@@ -586,7 +636,7 @@ Los resultados obtenidos corresponden al funcionamiento esperado.
 
 El LED permanece encendido mientras el pulsador se encuentra presionado y se apaga inmediatamente después de liberar el pulsador.
 
-# 17. Dificultades encontradas
+# 18. Dificultades encontradas
 
 Durante el desarrollo de la práctica se presentaron algunas dificultades relacionadas con la configuración de los pines del PIC18F45K22 y la conexión del pulsador.
 
@@ -611,7 +661,7 @@ para garantizar que los pines utilizados funcionaran correctamente como entradas
 
 Otra consideración importante fue utilizar los registros `LATD` para controlar la salida del LED y `PORTA` para leer el estado de la entrada.
 
-# 18. Análisis crítico
+# 19. Análisis crítico
 
 La práctica permitió comprobar el funcionamiento de un sistema básico de entrada, procesamiento y salida utilizando el PIC18F45K22.
 
@@ -627,7 +677,8 @@ La simulación en Proteus permitió comprobar el comportamiento del circuito y v
 
 Como limitación, el sistema desarrollado solamente utiliza una entrada y una salida digital, por lo que corresponde a una aplicación básica de control. Sin embargo, la estructura utilizada puede servir como base para sistemas más complejos con múltiples entradas y salidas.
 
-# 19. Conclusiones
+# 20. Conclusiones
+
 * Se implementó correctamente un sistema de entrada y salida digital utilizando el microcontrolador PIC18F45K22.
 * Se configuró el pin RA0 como entrada digital para detectar el estado del pulsador.
 * Se configuró el pin RD0 como salida digital para controlar el LED.
