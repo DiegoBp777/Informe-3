@@ -152,6 +152,7 @@ RD0 = 1 → LED encendido
 
 RD0 = 0 → LED apagado
 ```
+---
 # 5. Entradas, proceso y salidas
 
 El sistema puede representarse de la siguiente manera:
@@ -191,7 +192,7 @@ El sistema puede representarse de la siguiente manera:
 | Presionado             |   0 |   1 | Encendido      |
 | Se mantiene presionado |   0 |   1 | Encendido      |
 | Se suelta              |   1 |   0 | Apagado        |
-
+---
 # 6. Algoritmo
 
 El algoritmo desarrollado para resolver el problema es el siguiente:
@@ -207,7 +208,7 @@ El algoritmo desarrollado para resolver el problema es el siguiente:
 9. Si RA0 es igual a 0, encender el LED mediante RD0.
 10. Si RA0 es igual a 1, apagar el LED mediante RD0.
 11. Repetir continuamente el proceso.
-
+---
 # 7. Pseudocódigo
 ```text
 INICIO
@@ -234,6 +235,7 @@ FIN MIENTRAS
 
 FIN
 ```
+---
 # 8. Diagrama de flujo
 
 El funcionamiento del programa puede representarse mediante el siguiente diagrama:
@@ -286,6 +288,8 @@ El funcionamiento del programa puede representarse mediante el siguiente diagram
                    └──────┬──────┘
                           │
                           └───────────↺
+                          
+---
 # 9. Marco teórico
 ## 9.1. Microcontrolador PIC18F45K22
 
@@ -340,7 +344,7 @@ Pulsador abierto  → RA0 = 1
 Pulsador cerrado  → RA0 = 0
 ```
 Por esta razón, el programa considera que el pulsador está presionado cuando RA0 tiene un valor lógico `0`.
-
+---
 # 10. Materiales y herramientas
 **Materiales**
 PIC18F45K22.
@@ -355,6 +359,8 @@ PIC18F45K22.
 * MPLAB X IDE.
 * Compilador XC8.
 * Proteus Design Suite.
+
+---
   
 # 11. Diseño del circuito
 
@@ -393,7 +399,7 @@ La conexión general del circuito es:
                   LED
                    │
                   GND
-
+---
 # 12. Conexiones del PIC18F45K22
 
 Las principales conexiones utilizadas en la práctica son:
@@ -434,6 +440,7 @@ LED
  │
 GND
 ```
+---
 # 13. Implementación del programa
 
 El programa fue desarrollado en MPLAB X IDE utilizando el compilador XC8.
@@ -471,6 +478,7 @@ Si RA0 es igual a 1, se apaga:
 ```text
 LATDbits.LATD0 = 0;
 ```
+---
 # 14. Código utilizado
 ```text
 /*
@@ -526,6 +534,7 @@ void main(void) {
     return;
 }
 ```
+---
 # 15. Simulación en Proteus
 
 Después de realizar el programa en MPLAB X IDE, se realizó la compilación del proyecto para generar el archivo `.hex`.
@@ -577,6 +586,7 @@ Por lo tanto:
 ```text
 LED = APAGADO
 ```
+---
 ## 16. Evidencias
 
 En esta sección se presentan las evidencias correspondientes al desarrollo de la práctica, incluyendo la programación realizada en MPLAB X IDE, el montaje del circuito en Proteus y las diferentes pruebas de funcionamiento del sistema.
@@ -620,7 +630,7 @@ El microcontrolador detecta esta condición y establece la salida RD0 en nivel l
 ![Pulsador presionado - LED encendido](imagenes/led_encendido.png)
 
 ---
-
+---
 # 17. Pruebas y resultados
 
 Se realizaron diferentes pruebas para verificar el funcionamiento del sistema.
@@ -635,7 +645,7 @@ Se realizaron diferentes pruebas para verificar el funcionamiento del sistema.
 Los resultados obtenidos corresponden al funcionamiento esperado.
 
 El LED permanece encendido mientras el pulsador se encuentra presionado y se apaga inmediatamente después de liberar el pulsador.
-
+---
 # 18. Dificultades encontradas
 
 Durante el desarrollo de la práctica se presentaron algunas dificultades relacionadas con la configuración de los pines del PIC18F45K22 y la conexión del pulsador.
@@ -660,7 +670,7 @@ ANSELD = 0;
 para garantizar que los pines utilizados funcionaran correctamente como entradas y salidas digitales.
 
 Otra consideración importante fue utilizar los registros `LATD` para controlar la salida del LED y `PORTA` para leer el estado de la entrada.
-
+---
 # 19. Análisis crítico
 
 La práctica permitió comprobar el funcionamiento de un sistema básico de entrada, procesamiento y salida utilizando el PIC18F45K22.
@@ -676,7 +686,7 @@ El funcionamiento obtenido cumple con el objetivo planteado: el LED se enciende 
 La simulación en Proteus permitió comprobar el comportamiento del circuito y verificar la relación entre la entrada y la salida antes de realizar una implementación física.
 
 Como limitación, el sistema desarrollado solamente utiliza una entrada y una salida digital, por lo que corresponde a una aplicación básica de control. Sin embargo, la estructura utilizada puede servir como base para sistemas más complejos con múltiples entradas y salidas.
-
+---
 # 20. Conclusiones
 
 * Se implementó correctamente un sistema de entrada y salida digital utilizando el microcontrolador PIC18F45K22.
